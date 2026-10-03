@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una pregunta para ti 💗</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root{
+ --pink:#ff4f89; --pink2:#ff9fbd; --dark:#351827; --white:#fff;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;
+ font-family:Poppins,sans-serif;
+ color:var(--dark);
+ background:linear-gradient(135deg,#fff7fa,#ffe1ec,#fff);
+ overflow-x:hidden;
+}
+#bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.float{
+ position:absolute;bottom:-50px;opacity:.55;
+ animation:up linear infinite;
+}
+@keyframes up{
+ to{transform:translateY(-115vh) rotate(360deg);opacity:0}
+}
+.screen{
+ min-height:100vh;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ padding:28px 18px;
+ position:relative;
+ z-index:1;
+}
+.screen.active{display:flex}
+.box{
+ width:min(850px,94vw);
+ background:rgba(255,255,255,.75);
+ backdrop-filter:blur(16px);
+ border:1px solid rgba(255,255,255,.95);
+ border-radius:34px;
+ padding:55px 30px;
+ box-shadow:0 25px 80px rgba(120,25,70,.14);
+ animation:appear .8s ease;
+}
+@keyframes appear{
+ from{opacity:0;transform:translateY(25px) scale(.97)}
+ to{opacity:1;transform:none}
+}
+h1,h2{
+ font-family:"DM Serif Display",serif;
+ font-weight:400;
+}
+h1{font-size:clamp(3.2rem,9vw,6.5rem);line-height:.95;margin:20px 0}
+h2{font-size:clamp(2.3rem,6vw,4.2rem);margin:10px 0 25px}
+.gradient{
+ background:linear-gradient(90deg,#df3d76,#ff79a5,#bd3f86);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+p{line-height:1.9;font-size:1.05rem}
+.small{opacity:.7;font-size:.9rem}
+.btn{
+ border:0;cursor:pointer;
+ padding:15px 28px;border-radius:999px;
+ background:var(--pink);color:white;
+ font-family:inherit;font-size:1rem;font-weight:600;
+ box-shadow:0 12px 30px rgba(255,79,137,.3);
+ transition:.25s;
+ margin:7px;
+}
+.btn:hover{transform:translateY(-3px) scale(1.03)}
+.btn.light{background:white;color:var(--pink)}
+.heart{
+ font-size:5rem;
+ animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+ 50%{transform:scale(1.15)}
+}
+.progress{
+ position:fixed;top:0;left:0;height:4px;width:0;
+ background:var(--pink);z-index:10;transition:.4s;
+}
+.photos{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:28px 0;
+}
+.photo{
+ height:230px;border:2px dashed #ff9cba;border-radius:22px;
+ background:linear-gradient(135deg,#ffe0ea,#fff);
+ display:flex;align-items:center;justify-content:center;
+ overflow:hidden;position:relative;cursor:pointer;
+}
+.photo span{color:#b73f69;font-weight:600}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.photo input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.question{
+ font-size:clamp(2.8rem,8vw,5.5rem);
+ color:#df3d76;
+ margin:25px 0;
+}
+.answers{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}
+#noBtn{position:relative}
+.final{
+ font-size:1.15rem;max-width:650px;margin:auto;
+}
+.signature{
+ font-family:"DM Serif Display",serif;
+ color:var(--pink);font-size:2rem;margin-top:25px;
+}
+@media(max-width:700px){
+ .box{padding:42px 20px}
+ .photos{grid-template-columns:1fr}
+ .photo{height:250px}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<div id="bg"></div>
+
+<!-- PANTALLA 1 -->
+<section class="screen active" id="s1">
+ <div class="box">
+  <div class="heart">♡</div>
+  <p class="small">Hay algo que llevo un rato queriendo decirte...</p>
+  <h1>Pero primero<br><span class="gradient">tienes que abrir esto.</span></h1>
+  <button class="btn" onclick="go(2)">Abrir 💌</button>
+ </div>
+</section>
+
+<!-- PANTALLA 2 -->
+<section class="screen" id="s2">
+ <div class="box">
+  <p class="small">No te preocupes, no es nada malo 😭</p>
+  <h2>De hecho...</h2>
+  <p>
+   He estado pensando en cómo decirte algo que para mí es importante.
+   Y como no quería hacerlo de una manera cualquiera, decidí hacerte esto.
+  </p>
+  <button class="btn" onclick="go(3)">Continuar ✨</button>
+ </div>
+</section>
+
+<!-- PANTALLA 3 -->
+<section class="screen" id="s3">
+ <div class="box">
+  <p class="small">Hay algo que me gusta mucho...</p>
+  <h2>Los momentos contigo.</h2>
+  <p>
+   Las conversaciones, las risas, las tonterías, los momentos inesperados...
+   poco a poco me di cuenta de que estar contigo se convirtió en algo que realmente disfruto.
+  </p>
+  <button class="btn" onclick="go(4)">Siguiente 💗</button>
+ </div>
+</section>
+
+<!-- PANTALLA 4 -->
+<section class="screen" id="s4">
+ <div class="box">
+  <p class="small">Y también quería guardar algunos recuerdos...</p>
+  <h2>Nuestros momentos 📸</h2>
+  <p>Haz clic en cada cuadro para agregar fotos de ustedes.</p>
+  <div class="photos">
+   <label class="photo"><span>📷 Foto 1</span><input type="file" accept="image/*" onchange="photo(event,this.parentElement)"></label>
+   <label class="photo"><span>📷 Foto 2</span><input type="file" accept="image/*" onchange="photo(event,this.parentElement)"></label>
+   <label class="photo"><span>📷 Foto 3</span><input type="file" accept="image/*" onchange="photo(event,this.parentElement)"></label>
+  </div>
+  <button class="btn" onclick="go(5)">Hay algo más... 👀</button>
+ </div>
+</section>
+
+<!-- PANTALLA 5 -->
+<section class="screen" id="s5">
+ <div class="box">
+  <div class="heart">♥</div>
+  <p class="small">Y creo que ya no tiene sentido seguir dándole vueltas...</p>
+  <h2>Así que mejor te lo digo.</h2>
+  <p>
+   Me gustas. Mucho.<br>
+   Y no quería quedarme con las ganas de preguntártelo.
+  </p>
+  <button class="btn" onclick="go(6)">Ver la pregunta 💌</button>
+ </div>
+</section>
+
+<!-- PANTALLA 6 -->
+<section class="screen" id="s6">
+ <div class="box">
+  <p class="small">Después de todo este recorrido...</p>
+  <div class="question">¿Quieres ser mi novia? ❤️</div>
+  <div class="answers">
+   <button class="btn" onclick="yes()">SÍ 💗</button>
+   <button class="btn light" id="noBtn" onclick="moveNo()">Déjame pensarlo 🥺</button>
+  </div>
+  <p class="small" id="hint"></p>
+ </div>
+</section>
+
+<!-- FINAL -->
+<section class="screen" id="s7">
+ <div class="box">
+  <div class="heart">💗</div>
+  <h1><span class="gradient">Sabía que sí.</span></h1>
+  <p class="final">
+   Gracias por darme la oportunidad de vivir esto contigo.
+   Prometo disfrutar cada momento, hacerte sonreír y seguir creando
+   recuerdos contigo.
+  </p>
+  <div class="signature">Ahora sí... oficialmente nosotros. ❤️</div>
+  <button class="btn" onclick="burst()">Una última sorpresa ✨</button>
+ </div>
+</section>
+
+<script>
+let current=1;
+function go(n){
+ document.getElementById("s"+current).classList.remove("active");
+ current=n;
+ document.getElementById("s"+current).classList.add("active");
+ document.getElementById("progress").style.width=((current-1)/6*100)+"%";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function photo(event,box){
+ const file=event.target.files[0];
+ if(!file)return;
+ const old=box.querySelector("img"); if(old)old.remove();
+ const img=document.createElement("img");
+ img.src=URL.createObjectURL(file);
+ box.appendChild(img);
+ box.querySelector("span").style.display="none";
+}
+function moveNo(){
+ const b=document.getElementById("noBtn");
+ const x=(Math.random()-.5)*180;
+ const y=(Math.random()-.5)*100;
+ b.style.transform=`translate(${x}px,${y}px)`;
+ document.getElementById("hint").textContent="Jajaja, esa opción se está escapando 👀";
+}
+function yes(){
+ go(7);
+ burst();
+}
+function burst(){
+ for(let i=0;i<90;i++){
+  const e=document.createElement("span");
+  e.textContent=["💗","❤️","💕","✨","🎉","💖"][Math.floor(Math.random()*6)];
+  e.style.position="fixed";
+  e.style.left="50%";e.style.top="50%";
+  e.style.zIndex="99";e.style.pointerEvents="none";
+  e.style.fontSize=(15+Math.random()*25)+"px";
+  const x=(Math.random()-.5)*window.innerWidth*1.2;
+  const y=(Math.random()-.5)*window.innerHeight*1.2;
+  e.animate([
+   {transform:"translate(-50%,-50%) scale(.2)",opacity:1},
+   {transform:`translate(${x}px,${y}px) rotate(${Math.random()*700-350}deg) scale(1.2)`,opacity:0}
+  ],{duration:1400+Math.random()*1000,easing:"cubic-bezier(.2,.8,.2,1)"});
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),2600);
+ }
+}
+for(let i=0;i<35;i++){
+ const e=document.createElement("div");
+ e.className="float";
+ e.textContent=["♡","♥","✦","·"][Math.floor(Math.random()*4)];
+ e.style.left=Math.random()*100+"%";
+ e.style.fontSize=(12+Math.random()*22)+"px";
+ e.style.animationDuration=(7+Math.random()*12)+"s";
+ e.style.animationDelay=(-Math.random()*14)+"s";
+ document.getElementById("bg").appendChild(e);
+}
+</script>
+</body>
+</html>
